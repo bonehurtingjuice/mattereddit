@@ -23,6 +23,7 @@ our Reddit and Discord general chatrooms.
 BindAddress="127.0.0.1:4242"
 Token="MATTERBRIDGE_TOKEN"
 Buffer=1000
+RemoteNickFormat="{NICK}"
 
 ...
 

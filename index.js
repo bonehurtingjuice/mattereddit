@@ -18,7 +18,7 @@ puppeteer.launch(config.puppeteer).then(async (browser) =>
 	const page = await browser.newPage();
 	let loggedin = false;
 	await page.goto(config.reddit.room);
-	if (await page.evaluate(() => location.pathname) === "/login")
+	if (await page.evaluate(() => location.pathname.includes("/login")))
 	{
 		await page.evaluate(function (username, password)
 		{
@@ -52,10 +52,16 @@ puppeteer.launch(config.puppeteer).then(async (browser) =>
 		}).pipe(JSONStream.parse()).pipe(eventstream.map(async (message) =>
 		{
 			console.log(`inbound message ${JSON.stringify(message)}`);
-			await page.evaluate((message) =>
+
+			//initial connected event - do not post
+			if (message.event !== 'api_connected')
 			{
-				rcc.sendMessage(message);
-			}, message);
+				await page.evaluate((message) =>
+				{
+					rcc.sendMessage(message);
+				}, message);
+			}
+
 		}));
 	});
 	await page.exposeFunction("onMessage", function (message)
@@ -114,10 +120,10 @@ puppeteer.launch(config.puppeteer).then(async (browser) =>
 			
 			parseByline(elem)
 			{
-				let byh4 = elem.querySelector("h4"), byimg = elem.querySelector("img"), byi = elem.querySelector("i");
+				let byh4 = elem.querySelectorAll("span"), byimg = elem.querySelector("img"), byi = elem.querySelector("i");
 				if (byh4 !== null)
 				{
-					this.username = byh4.textContent;
+					this.username = byh4[2].innerText;
 					this.botmsg = this.username === this.botname;
 				}
 				if (byimg !== null)
@@ -215,7 +221,6 @@ puppeteer.launch(config.puppeteer).then(async (browser) =>
 				
 				// check last byline
 				let atags = this.messages.querySelectorAll("a");
-				console.log(atags);
 				if (atags.length !== 0)
 					this.parseByline(atags[atags.length - 1]);
 				
