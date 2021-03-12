@@ -1,12 +1,11 @@
-# Mattereddit 2 - "Farewell Edition"
+# Mattereddit 2
 
 Mattereddit is a [Matterbridge](https://github.com/42wim/matterbridge)
-API plugin allowing you to connect Reddit Community Chat to the various
+API plugin allowing you to connect Reddit group chats to the various
 chat services supported by Matterbridge.
 
 This version has been rewritten in Python, and no longer needs a
-headless browser, but it's a bit late in the game, seeing as Reddit
-Community Chat is set to shut down in less than 2 weeks.  Ah well.
+headless browser.
 
 Matterbridge and Mattereddit are used by [BHJ](http://bigchung.us) to
 bridge our Reddit, Discord, and IRC chatrooms.
@@ -57,9 +56,3 @@ that Mattereddit can connect to.
 ```
 
 This file should be in Mattereddit's working directory.
-
-You can get the Reddit token with this script:
-
-https://raw.githubusercontent.com/scrubjay55/Reddit_ChatBot_Python/master/dump_access_token/dump_access_token.py
-
-(It's different from the token you get from the developer section)
