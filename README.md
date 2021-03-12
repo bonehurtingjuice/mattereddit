@@ -44,7 +44,7 @@ that Mattereddit can connect to.
 	"reddit":
 	{
 		"username": "BHJMatterbridge",
-		"token": "REDDIT_TOKEN",
+		"password": "reddit password",
 		"room": "https://www.reddit.com/chat/r/bonehurtingjuice/channel/814473_c092110c9476c2129151c240b7ccd2baa3af6b7d"
 	},
 	"matterbridge":
