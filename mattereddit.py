@@ -1,5 +1,5 @@
 # Mattereddit
-# Copyright 2018, 2020 Declan Hoare
+# Copyright 2018, 2022 Declan Hoare
 
 import json
 import threading
@@ -12,7 +12,7 @@ sess = requests.Session()
 with open("mattereddit.json") as f:
     config = json.load(f)
 
-reddit_auth = RedditAuthentication.PasswordAuth(reddit_username=config["username"], reddit_password=config["password"])
+reddit_auth = RedditAuthentication.PasswordAuth(reddit_username=config["reddit"]["username"], reddit_password=config["reddit"]["password"])
 bot = ChatBot(authentication=reddit_auth)
 if "token" in config["matterbridge"]:
     sess.headers["Authorization"] = "Bearer " + config["matterbridge"]["token"]
@@ -22,7 +22,7 @@ re_user = config["reddit"]["username"]
 re_room = "sendbird_group_channel_" + config["reddit"]["room"].split("/")[-1]
 
 
-@bot.on_message_hook
+@bot.event.on_message
 def on_message(resp):
     if resp.user.name == re_user:
         return
